@@ -1,5 +1,5 @@
+import { promiseImage } from "./datas";
 var wrapper;
-var links;
 
 function loadDate() {
   var date = new Date().toLocaleString();
@@ -14,7 +14,16 @@ function updateDate() {
 }
 
 function loadDOMEditor() {
-  loadWrapperContent("src/pages/Editor/Editor.html");
+  const promiseLoadingPage = loadWrapperContent("src/pages/Editor/Editor.html");
+
+  promiseLoadingPage.then((r) => {
+    console.log("fin de chargement");
+  });
+
+  Promise.all([promiseImage, promiseLoadingPage]).then((arraydesReponses) => {
+    console.log("tous les chargements sont effectués", arraydesReponses);
+    loadImage
+  });
 }
 function loadDOMThumbnail() {
   wrapper.innerHTML = "<h1>Thumbnail</h1>";
@@ -58,7 +67,7 @@ function constructPage(path) {
 }
 
 /**
- * fonction pour charger le html d'une page html dans le wrapper venant d'une adresse html
+ * fonction pour charger le contenu d'une page html dans le wrapper venant d'une adresse
  * @param {string} path chemin de la page html
  * @returns {void} aucun retour
  * */
@@ -67,4 +76,13 @@ const loadWrapperContent = (path) => {
     return response.text();
   });
   promise.then((html) => (wrapper.innerHTML = html));
+};
+
+const loadImage = (id) => {
+  const url = "http://localhost:5679/Images/" + id;
+
+  const promise = fetch(url).then((response) => {
+    return response.json();
+  });
+  promise.then((img) => console.log(img));
 };

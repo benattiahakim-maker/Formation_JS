@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "api" : "json-server -p 5679 db.json"
   },
   "devDependencies": {
+    "json-server": "0.17.4",
     "typescript": "~6.0.2",
     "vite": "^8.3.0"
   }
