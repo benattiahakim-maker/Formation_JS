@@ -1,0 +1,50 @@
+#editor{
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+#editor>*:first-child{
+  flex-grow: 1;
+}
+#memeform {
+  height: 100%;
+  width: 32vw;
+  margin-left: 10px;
+  overflow-y: auto;
+  text-align: center;
+}
+.small-number{
+    width: 50px;
+}
+#viewer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#editor canvas, #editor svg{
+  border: 1px solid grey;
+  max-width:100%;
+  max-height:calc(100% - 5px)
+}
+
+.inline{
+    display: inline;
+}
+.inline-block{
+    display: flex;
+    justify-content: space-around;
+}
+.block{
+    display: block;
+}
+.bold{
+    font-size: xx-large;
+    font-weight: 900;
+}
+.underline{
+    text-decoration: underline;
+}
+.center-flex{
+    display: flex;
+    justify-content: space-evenly;
+}

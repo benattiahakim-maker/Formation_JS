@@ -14,13 +14,13 @@ function updateDate() {
 }
 
 function loadDOMEditor() {
-  wrapper.innerHTML = "<h1>Editor</h1>";
+  loadWrapperContent("src/pages/Editor/Editor.html");
 }
 function loadDOMThumbnail() {
   wrapper.innerHTML = "<h1>Thumbnail</h1>";
 }
 function loadDOMHome() {
-  wrapper.innerHTML = "<h1>Home</h1>";
+  loadWrapperContent("src/pages/home/home.html");
 }
 
 document.addEventListener("DOMContentLoaded", function (evt) {
@@ -56,3 +56,15 @@ function constructPage(path) {
       break;
   }
 }
+
+/**
+ * fonction pour charger le html d'une page html dans le wrapper venant d'une adresse html
+ * @param {string} path chemin de la page html
+ * @returns {void} aucun retour
+ * */
+const loadWrapperContent = (path) => {
+  const promise = fetch(path).then((response) => {
+    return response.text();
+  });
+  promise.then((html) => (wrapper.innerHTML = html));
+};
