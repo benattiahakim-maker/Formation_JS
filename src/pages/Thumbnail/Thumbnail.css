@@ -1,0 +1,21 @@
+#thumbnail{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+}
+.preview{
+    max-height: 30vh;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding :15px
+}
+.preview svg{
+    max-height:100% ;
+}

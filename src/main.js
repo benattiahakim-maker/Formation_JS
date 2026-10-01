@@ -1,4 +1,7 @@
-import { promiseImage } from "./datas";
+import { fillForm, fillFormAllInput,loadImageNames } from "./pages/Editor/Editor";
+import { promiseImage } from "/src/datas.js";
+import { promiseMeme } from "./datas.js";
+
 var wrapper;
 
 function loadDate() {
@@ -22,11 +25,30 @@ function loadDOMEditor() {
 
   Promise.all([promiseImage, promiseLoadingPage]).then((arraydesReponses) => {
     console.log("tous les chargements sont effectués", arraydesReponses);
-    loadImage
+
+    loadImageNames(arraydesReponses[0]);
+    console.log("test");
+    fillFormAllInput();
   });
 }
 function loadDOMThumbnail() {
-  wrapper.innerHTML = "<h1>Thumbnail</h1>";
+  const promiseLoadingPage = loadWrapperContent(
+    "/src/pages/Thumbnail/Thumbnail.html",
+  );
+
+  Promise.all([promiseMeme,promiseImage, promiseLoadingPage]).then((arraydesReponses) => {
+    console.log("tous les chargements sont effectués", arraydesReponses);
+    const thmbnailDiv = document.querySelector("#thumbnail");
+    arraydesReponses[0].forEach((meme) => {
+      const div = document.createElement("div");
+      div.className = "preview";
+      const h3 = document.createElement("h3");
+      h3.innerHTML = meme.titre;
+      div.appendChild(h3);
+      div.appendChild(meme.getSVGNode());
+      thmbnailDiv.appendChild(div);
+    });
+  });
 }
 function loadDOMHome() {
   loadWrapperContent("src/pages/home/home.html");
@@ -75,7 +97,8 @@ const loadWrapperContent = (path) => {
   const promise = fetch(path).then((response) => {
     return response.text();
   });
-  promise.then((html) => (wrapper.innerHTML = html));
+  const html = promise.then((html) => (wrapper.innerHTML = html));
+  return html;
 };
 
 const loadImage = (id) => {
